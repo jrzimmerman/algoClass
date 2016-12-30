@@ -59,11 +59,42 @@ function BinarySearchTree (value) {
 
 BinarySearchTree.prototype.insert = function(value) {
   // implement me...
+  if (value <= this.value) {
+    if (this.left) {
+      this.left.insert(value);
+    } else {
+      this.left = new BinarySearchTree(value);
+    }
+  } else {
+    if (this.right) {
+      this.right.insert(value);
+    } else {
+      this.right = new BinarySearchTree(value);
+    }
+  }
 };
 // Time complexity:
 
 BinarySearchTree.prototype.contains = function(value) {
   // implement me...
+
+  if (this.value === value) {
+    return true;
+  }
+  if (value < this.value) {
+    if (this.left) {
+      return this.left.contains(value);
+    } else {
+      return false;
+    }
+  } else {
+    if (this.right) {
+      return this.right.contains(value);
+    } else {
+      return false;
+    }
+  }
+  
 };
 // Time complexity:
 
