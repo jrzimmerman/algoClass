@@ -93,6 +93,8 @@ function Graph () {
 
 Graph.prototype.addNode = function(value) {
   // implement me...
+  if (!value) return "error";
+  this._nodes[value] =  this._nodes[value] || [];
 };
 // Time complexity:
 
@@ -103,11 +105,18 @@ Graph.prototype.removeNode = function(value) {
 
 Graph.prototype.contains = function(value) {
   // implement me...
+  if (this._nodes[value]) return true;
+  return false;
 };
 // Time complexity:
 
 Graph.prototype.addEdge = function(value1, value2) {
   // implement me...
+  if (!this._nodes[value1] || this._nodes[value2]) {
+    return "error";
+  }
+  this._nodes[value1].push(value2);
+  this._nodes[value2].push(value1);
 };
 // Time complexity:
 
