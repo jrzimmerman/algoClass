@@ -137,10 +137,33 @@ Graph.prototype.forEach = function(fn) {
 
 Graph.prototype.traverseDepthFirst = function(value, fn, visited, distance) {
   // implement me...
+  let visited = visited || {};
+  let distance = distance || 0;
+  fn(value, distance);
+  visited[value] = true;
+  this._nodes[value].forEach(function(neighbor) {
+    if (visited[neighbor]) return;
+    this.traverseDepthFirst(neighbor, fn, visited, distance+1);
+  }, this);
 };
 // Time complexity:
 
 Graph.prototype.traverseBreadthFirst = function(value, fn) {
   // implement me...
+  if(!this._nodes[value] || typeof fn !== 'function') return 'error';
+  let visited = {};
+  let queue = [value];
+  visited[value] = 0;
+  while (queue.length) {
+    const node = queue.shift();
+    fn(node, visited[node]);
+    const neighbors = this._nodes[node].filter(function(neighbor) {
+      if (visited[neighbor] === undefined) {
+        visited[neighbor] = visited[node] + 1;
+        return true;
+      }
+    });
+    queue = queue.concat(neighbors);
+  }
 };
 // Time complexity:
